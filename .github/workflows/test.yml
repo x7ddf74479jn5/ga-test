@@ -14,3 +14,29 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
+      - name: Get pnpm store directory
+        id: pnpm-store
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        id: pnpm-cache
+        with:
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        shell: bash
+        run: |
+          echo 'in workflow'
+          echo steps.pnpm-cache.outputs.cache-hit
+          echo ${{steps.pnpm-cache.outputs.cache-hit}}
+          echo ${{ steps.pnpm-cache.outputs.cache-hit != true }}
+          echo ${{ steps.pnpm-cache.outputs.cache-hit != 'true' }}
+          echo ${{ steps.pnpm-cache.outputs.cache-hit != false }}
+          echo ${{ steps.pnpm-cache.outputs.cache-hit != 'false' }}
+          if ${{ steps.pnpm-cache.outputs.cache-hit != true }}; then
+              echo "miss"
+          fi

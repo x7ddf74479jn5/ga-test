@@ -29,7 +29,7 @@ runs:
       shell: bash
       run: |
         echo steps.pnpm-cache.outputs.cache-hit
-        echo ${steps.pnpm-cache.outputs.cache-hit}
+        echo ${{steps.pnpm-cache.outputs.cache-hit}}
         echo ${{ steps.pnpm-cache.outputs.cache-hit != true }}
         echo ${{ steps.pnpm-cache.outputs.cache-hit != 'true' }}
         echo ${{ steps.pnpm-cache.outputs.cache-hit != false }}
