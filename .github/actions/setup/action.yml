@@ -31,9 +31,9 @@ runs:
         echo steps.pnpm-cache.outputs.cache-hit
         echo ${steps.pnpm-cache.outputs.cache-hit}
         echo ${{ steps.pnpm-cache.outputs.cache-hit != true }}
-        echo ${{ steps.pnpm-cache.outputs.cache-hit != "true" }}
+        echo ${{ steps.pnpm-cache.outputs.cache-hit != 'true' }}
         echo ${{ steps.pnpm-cache.outputs.cache-hit != false }}
-        echo ${{ steps.pnpm-cache.outputs.cache-hit != "false" }}
+        echo ${{ steps.pnpm-cache.outputs.cache-hit != 'false' }}
         if ${{ steps.pnpm-cache.outputs.cache-hit != true }}; then
          pnpm install --shamefully-hoist --frozen-lockfile
         fi
